@@ -1162,7 +1162,7 @@ body::-webkit-scrollbar {
         gap: clamp(1.2rem, 6vw, 2.6rem);
         align-items: flex-end;
         justify-content: center;
-        margin-top: clamp(2.6vh, 5vw, 4vh);
+        margin-top: clamp(1.6vh, 3.2vw, 2.6vh);
 }
 
 .icon-item {
@@ -1194,9 +1194,13 @@ body::-webkit-scrollbar {
 
 .icon-label {
         font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(0.68rem, 1.8vh, 0.95rem);
-        color: var(--brown-dark);
+        font-size: clamp(0.85rem, 2.3vh, 1.1rem);
+        font-weight: 800;
+        color: #1a0f08;
         text-align: center;
+        white-space: normal;
+        line-height: 1.15;
+        max-width: 6.5em;
 }
 
 .toast-section.show {
@@ -1259,23 +1263,23 @@ body::-webkit-scrollbar {
 
 /* ---- Texto (label + número) — estilo fino, discreto, como na referência ---- */
 .date-label {
-        font-size: clamp(0.7rem, 1.8vh, 0.9rem);
-        font-weight: 700;
-        color: var(--brown-dark);
+        font-size: clamp(0.85rem, 2.3vh, 1.05rem);
+        font-weight: 800;
+        color: #1a0f08;
         letter-spacing: 0.08em;
         line-height: 1.15;
         white-space: nowrap;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 .date-number {
-        font-size: clamp(1rem, 2.6vh, 1.35rem);
-        font-weight: 700;
-        color: var(--brown-dark);
+        font-size: clamp(1.2rem, 3.1vh, 1.6rem);
+        font-weight: 800;
+        color: #1a0f08;
         letter-spacing: 0.02em;
         line-height: 1.15;
         white-space: nowrap;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 /* ---- Letra individual (animação uma a uma) ---- */
@@ -1393,10 +1397,12 @@ body::-webkit-scrollbar {
         }
 
         .date-label {
-                font-size: clamp(0.72rem, 2vh, 0.95rem);
+                font-size: clamp(0.9rem, 2.4vh, 1.1rem);
+                font-weight: 800;
         }
 
         .date-number {
-                font-size: clamp(1.15rem, 3.6vh, 1.6rem);
+                font-size: clamp(1.3rem, 4vh, 1.75rem);
+                font-weight: 800;
         }
 }

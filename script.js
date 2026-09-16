@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                                                                                 <div class="icon-img-wrap">
                                                                                                         <img src="src/fotos/confirmar_presenca.png" alt="Confirmar presença">
                                                                                                 </div>
-                                                                                                <div class="icon-label">Confirmar Presença</div>
+                                                                                                <div class="icon-label">Confirmar<br>Presença</div>
                                                                                         </div>
 
                                                                                         <div class="icon-item">
