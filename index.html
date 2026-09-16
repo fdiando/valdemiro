@@ -2,75 +2,135 @@
 <html lang="pt">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>Vinguila</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Vinguila</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+                href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap"
+                rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-	<audio id="bg-music" src="src/audio/musica.mp3" loop preload="auto"></audio>
+        <audio id="bg-music" src="src/audio/musica.mp3" loop preload="auto"></audio>
 
-	<!-- ============ ECRÃ — CAPA (fundo + nomes + convite) ============ -->
-	<section id="cover" class="screen active">
+        <!-- ============ ECRÃ — CAPA (fundo + nomes + convite) ============ -->
+        <section id="cover" class="screen active">
 
-		<!-- Fundo fixo: cobre sempre o ecrã inteiro, mesmo que o conteúdo abaixo
-		     seja mais alto e a página tenha scroll -->
-		<div class="cover-backdrop">
-			<div class="cover-layer cover-bg-layer">
-				<img src="src/fundo/fundo2.png" alt="" class="scene-bg">
-			</div>
+                <!-- Fundo fixo: cobre sempre o ecrã inteiro, mesmo que o conteúdo abaixo
+                     seja mais alto e a página tenha scroll -->
+                <div class="cover-backdrop">
+                        <div class="cover-layer cover-bg-layer">
+                                <img src="src/fundo/fundo2.png" alt="" class="scene-bg">
+                        </div>
 
-			<div class="cover-shade"></div>
+                        <div class="cover-shade"></div>
 
-			<div class="cover-layer cover-balloon-layer" id="rising-balloons"></div>
+                        <div class="cover-layer cover-balloon-layer" id="rising-balloons"></div>
 
-			<div class="birthday-reveal" id="birthday-reveal">
-				<img src="src/fundo/valdemiro1.png" alt="Happy Birthday" class="happy-birthday-img">
-				<div class="valdemiro-face-wrap">
-					<img src="src/fundo/valdemiro.png" alt="Valdemiro" class="valdemiro-face">
-				</div>
-			</div>
+                        <div class="birthday-reveal" id="birthday-reveal">
+                                <img src="src/fundo/valdemiro1.png" alt="Happy Birthday" class="happy-birthday-img">
+                                <div class="valdemiro-face-wrap">
+                                        <img src="src/fundo/valdemiro.png" alt="Valdemiro" class="valdemiro-face">
+                                </div>
+                        </div>
 
-			<div class="disco-balls" id="disco-balls">
-				<img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-1">
-				<img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-2">
-				<img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-3">
-				<img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-4">
-				<img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-5">
-			</div>
-		</div>
+                        <div class="disco-balls" id="disco-balls">
+                                <img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-1">
+                                <img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-2">
+                                <img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-3">
+                                <img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-4">
+                                <img src="src/fotos/boladecristal.png" alt="" class="disco-ball disco-ball-5">
+                        </div>
 
-		<!-- Conteúdo: flui normalmente por cima do fundo fixo, cresce à vontade
-		     e a página faz scroll sozinha se não couber tudo num ecrã -->
-		<div class="cover-scene" id="cover-scene">
+                        <!-- ============ SECCÇÃO DE BRINDE + DATA/HORA ============ -->
+                        <!-- Em baixo da foto do Valdemiro: duas canecas que se juntam
+                             para brindar, fazem um movimento "V" e depois as letras
+                             aparecem uma a uma. Lado esquerdo (Sábado 26/09) primeiro,
+                             depois lado direito (A partir das 21h). -->
+                        <div class="toast-section" id="toast-section">
 
-			<!-- Logótipo do template -->
-			<div class="cover-names-top">
-				<img src="src/fundo/template.png" alt="" class="cover-template-logo">
-			</div>
+                                <!-- ---- Lado esquerdo: Sábado 26/09 ---- -->
+                                <div class="date-side date-left" id="date-left">
+                                        <div class="line line-top"></div>
+                                        <div class="date-label" id="left-label">
+                                                <span class="date-letter" style="--i:0">S</span>
+                                                <span class="date-letter" style="--i:1">á</span>
+                                                <span class="date-letter" style="--i:2">b</span>
+                                                <span class="date-letter" style="--i:3">a</span>
+                                                <span class="date-letter" style="--i:4">d</span>
+                                                <span class="date-letter" style="--i:5">o</span>
+                                        </div>
+                                        <div class="date-number" id="left-number">
+                                                <span class="date-letter" style="--i:0">2</span>
+                                                <span class="date-letter" style="--i:1">6</span>
+                                                <span class="date-letter" style="--i:2">/</span>
+                                                <span class="date-letter" style="--i:3">0</span>
+                                                <span class="date-letter" style="--i:4">9</span>
+                                        </div>
+                                        <div class="line line-bottom"></div>
+                                </div>
 
-		</div>
-	</section>
+                                <!-- ---- Centro: duas canecas a brindar ---- -->
+                                <div class="canecas-wrap" id="canecas-wrap">
+                                        <img src="src/fotos/caneca.png" alt="" class="caneca caneca-left">
+                                        <img src="src/fotos/caneca.png" alt="" class="caneca caneca-right">
+                                </div>
 
-	<!-- ============ ECRÃ — ENVELOPE ============ -->
-	<section id="envelope-screen" class="screen active">
-		<div class="envelope-wrap" id="envelope-wrap" aria-label="Convite">
-			<img src="src/envelope/envelope2.png" alt="" class="envelope-body" id="envelope-body" />
-			<div class="envelope-flap-wrapper" id="flap-wrapper">
-				<img src="src/envelope/envelope1.png" alt="" class="envelope-flap" />
-			</div>
-			<img src="src/envelope/lacinho.png" alt="" class="envelope-lacinho" id="envelope-lacinho" role="button"
-				aria-label="Tocar no laço para abrir o convite" />
-		</div>
-	</section>
+                                <!-- ---- Lado direito: A partir das 21h ---- -->
+                                <div class="date-side date-right" id="date-right">
+                                        <div class="line line-top"></div>
+                                        <div class="date-label" id="right-label">
+                                                <span class="date-letter" style="--i:0">A</span>
+                                                <span class="date-letter letter-space" style="--i:1">&nbsp;</span>
+                                                <span class="date-letter" style="--i:2">p</span>
+                                                <span class="date-letter" style="--i:3">a</span>
+                                                <span class="date-letter" style="--i:4">r</span>
+                                                <span class="date-letter" style="--i:5">t</span>
+                                                <span class="date-letter" style="--i:6">i</span>
+                                                <span class="date-letter" style="--i:7">r</span>
+                                        </div>
+                                        <div class="date-number" id="right-number">
+                                                <span class="date-letter" style="--i:0">d</span>
+                                                <span class="date-letter" style="--i:1">a</span>
+                                                <span class="date-letter" style="--i:2">s</span>
+                                                <span class="date-letter letter-space" style="--i:3">&nbsp;</span>
+                                                <span class="date-letter" style="--i:4">2</span>
+                                                <span class="date-letter" style="--i:5">1</span>
+                                                <span class="date-letter" style="--i:6">h</span>
+                                        </div>
+                                        <div class="line line-bottom"></div>
+                                </div>
+                        </div>
+                </div>
 
-	<script src="script.js"></script>
+                <!-- Conteúdo: flui normalmente por cima do fundo fixo, cresce à vontade
+                     e a página faz scroll sozinha se não couber tudo num ecrã -->
+                <div class="cover-scene" id="cover-scene">
+
+                        <!-- Logótipo do template -->
+                        <div class="cover-names-top">
+                                <img src="src/fundo/template.png" alt="" class="cover-template-logo">
+                        </div>
+
+                </div>
+        </section>
+
+        <!-- ============ ECRÃ — ENVELOPE ============ -->
+        <section id="envelope-screen" class="screen active">
+                <div class="envelope-wrap" id="envelope-wrap" aria-label="Convite">
+                        <img src="src/envelope/envelope2.png" alt="" class="envelope-body" id="envelope-body" />
+                        <div class="envelope-flap-wrapper" id="flap-wrapper">
+                                <img src="src/envelope/envelope1.png" alt="" class="envelope-flap" />
+                        </div>
+                        <img src="src/envelope/lacinho.png" alt="" class="envelope-lacinho" id="envelope-lacinho" role="button"
+                                aria-label="Tocar no laço para abrir o convite" />
+                </div>
+        </section>
+
+        <script src="script.js"></script>
 </body>
 
 </html>

@@ -1,159 +1,213 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const music = document.getElementById('bg-music');
+        const music = document.getElementById('bg-music');
 
-	const envelopeScreen = document.getElementById('envelope-screen');
-	const flapWrapper = document.getElementById('flap-wrapper');
-	const envelopeBody = document.getElementById('envelope-body');
-	const envelopeWrap = document.getElementById('envelope-wrap');
-	const envelopeLacinho = document.getElementById('envelope-lacinho');
+        const envelopeScreen = document.getElementById('envelope-screen');
+        const flapWrapper = document.getElementById('flap-wrapper');
+        const envelopeBody = document.getElementById('envelope-body');
+        const envelopeWrap = document.getElementById('envelope-wrap');
+        const envelopeLacinho = document.getElementById('envelope-lacinho');
 
-	// ===================== ENVELOPE =====================
-	let opened = false;
-	function abrirEnvelope() {
-		if (opened) return;
-		opened = true;
+        // ===================== ENVELOPE =====================
+        let opened = false;
+        function abrirEnvelope() {
+                if (opened) return;
+                opened = true;
 
-		flapWrapper.classList.add('open');
-		envelopeBody.classList.add('open');
-		envelopeWrap.classList.add('open');
+                flapWrapper.classList.add('open');
+                envelopeBody.classList.add('open');
+                envelopeWrap.classList.add('open');
 
-		if (music) {
-			music.volume = 0.85;
-			music.play().catch(() => { });
-		}
+                if (music) {
+                        music.volume = 0.85;
+                        music.play().catch(() => { });
+                }
 
-		setTimeout(() => {
-			document.querySelectorAll('.letter').forEach(l => l.classList.add('animate'));
-			const brandName = document.querySelector('.brand-name');
-			if (brandName) brandName.classList.add('animate');
-			setTimeout(() => {
-				document.querySelectorAll('.reveal-item').forEach(el => el.classList.add('animate'));
-			}, 1600);
-		}, 1000);
+                setTimeout(() => {
+                        document.querySelectorAll('.letter').forEach(l => l.classList.add('animate'));
+                        const brandName = document.querySelector('.brand-name');
+                        if (brandName) brandName.classList.add('animate');
+                        setTimeout(() => {
+                                document.querySelectorAll('.reveal-item').forEach(el => el.classList.add('animate'));
+                        }, 1600);
+                }, 1000);
 
-		setTimeout(() => {
-			envelopeScreen.style.display = 'none';
-		}, 1000);
-	}
+                setTimeout(() => {
+                        envelopeScreen.style.display = 'none';
+                }, 1000);
+        }
 
-	// O laço é o único gatilho: primeiro cai/tomba, só depois o envelope abre
-	if (envelopeLacinho) {
-		envelopeLacinho.addEventListener('click', (e) => {
-			e.stopPropagation();
-			if (envelopeLacinho.classList.contains('falling')) return;
+        // O laço é o único gatilho: primeiro cai/tomba, só depois o envelope abre
+        if (envelopeLacinho) {
+                envelopeLacinho.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (envelopeLacinho.classList.contains('falling')) return;
 
-			envelopeLacinho.classList.add('falling');
-			envelopeLacinho.addEventListener('animationend', () => {
-				abrirEnvelope();
-			}, { once: true });
-		});
-	}
+                        envelopeLacinho.classList.add('falling');
+                        envelopeLacinho.addEventListener('animationend', () => {
+                                abrirEnvelope();
+                        }, { once: true });
+                });
+        }
 
-	// ===================== BALÕES A SUBIR (ecrã 1) =====================
-	const balloonLayer = document.getElementById('rising-balloons');
-	if (balloonLayer) {
-		const TOTAL_BALOES = 25;
-		for (let i = 0; i < TOTAL_BALOES; i++) {
-			const img = document.createElement('img');
-			img.src = 'src/fundo/baloes.png';
-			img.alt = '';
-			img.className = 'rising-balloon';
+        // ===================== BALÕES A SUBIR (ecrã 1) =====================
+        const balloonLayer = document.getElementById('rising-balloons');
+        if (balloonLayer) {
+                const TOTAL_BALOES = 25;
+                for (let i = 0; i < TOTAL_BALOES; i++) {
+                        const img = document.createElement('img');
+                        img.src = 'src/fundo/baloes.png';
+                        img.alt = '';
+                        img.className = 'rising-balloon';
 
-			const left = Math.random() * 96;
-			const size = 46 + Math.random() * 60;
-			const duration = 2.5 + Math.random() * 2;
-			const delay = Math.random() * 1.2;
-			const swayX = (Math.random() * 80 - 40).toFixed(0) + 'px';
-			const swayStart = (Math.random() * 12 - 6).toFixed(1) + 'deg';
-			const swayEnd = (Math.random() * 12 - 6).toFixed(1) + 'deg';
+                        const left = Math.random() * 96;
+                        const size = 46 + Math.random() * 60;
+                        const duration = 2.5 + Math.random() * 2;
+                        const delay = Math.random() * 1.2;
+                        const swayX = (Math.random() * 80 - 40).toFixed(0) + 'px';
+                        const swayStart = (Math.random() * 12 - 6).toFixed(1) + 'deg';
+                        const swayEnd = (Math.random() * 12 - 6).toFixed(1) + 'deg';
 
-			img.style.left = left + '%';
-			img.style.width = size + 'px';
-			img.style.animationDuration = duration + 's';
-			img.style.animationDelay = delay + 's';
-			img.style.setProperty('--sway-x', swayX);
-			img.style.setProperty('--sway-start', swayStart);
-			img.style.setProperty('--sway-end', swayEnd);
+                        img.style.left = left + '%';
+                        img.style.width = size + 'px';
+                        img.style.animationDuration = duration + 's';
+                        img.style.animationDelay = delay + 's';
+                        img.style.setProperty('--sway-x', swayX);
+                        img.style.setProperty('--sway-start', swayStart);
+                        img.style.setProperty('--sway-end', swayEnd);
 
-			balloonLayer.appendChild(img);
-		}
+                        balloonLayer.appendChild(img);
+                }
 
-		// Depois dos balões terminarem: limpa a camada e revela o bloco de aniversário
-		const maxTime = (2.5 + 2 + 1.2) * 1000 + 400;
-		setTimeout(() => {
-			balloonLayer.innerHTML = '';
+                // Depois dos balões terminarem: limpa a camada e revela o bloco de aniversário
+                const maxTime = (2.5 + 2 + 1.2) * 1000 + 400;
+                setTimeout(() => {
+                        balloonLayer.innerHTML = '';
 
-			const birthdayReveal = document.getElementById('birthday-reveal');
-			if (birthdayReveal) {
-				birthdayReveal.classList.add('show');
-			}
+                        const birthdayReveal = document.getElementById('birthday-reveal');
+                        if (birthdayReveal) {
+                                birthdayReveal.classList.add('show');
+                        }
 
-			// Bolas de cristal: só surgem depois da foto aparecer e começar a girar
-			const discoBalls = document.getElementById('disco-balls');
-			if (discoBalls) {
-				setTimeout(() => {
-					discoBalls.classList.add('show');
-				}, 2400);
-			}
-		}, maxTime);
-	}
+                        // Bolas de cristal: só surgem depois da foto aparecer e começar a girar
+                        const discoBalls = document.getElementById('disco-balls');
+                        if (discoBalls) {
+                                setTimeout(() => {
+                                        discoBalls.classList.add('show');
+                                }, 2400);
+                        }
 
-	// ===================== EFEITO DE MOVIMENTO (FUNDO ESTÁTICO / BALÕES MÓVEIS) =====================
-	function requestTiltPermission() {
-		if (typeof DeviceOrientationEvent !== 'undefined' &&
-			typeof DeviceOrientationEvent.requestPermission === 'function') {
-			DeviceOrientationEvent.requestPermission().catch(() => { });
-		}
-	}
-	document.body.addEventListener('click', requestTiltPermission, { once: true });
+                        // ===================== SECÇÃO DE BRINDE + DATA/HORA =====================
+                        // Depois das bolas de cristal surgirem, aparece a secção com as
+                        // canecas (em baixo da foto do Valdemiro). A sequência é:
+                        //   1. Secção aparece (canecas largas, dos lados)
+                        //   2. Canecas deslizam para o centro — "toast" (brindam)
+                        //   3. Movimento leve em "V" (canecas inclinam-se para fora)
+                        //   4. Aparecem as letras uma a uma no lado esquerdo (Sábado 26/09)
+                        //      com os traços decorativos em cima e em baixo
+                        //   5. Depois do lado esquerdo terminar, aparece o lado direito
+                        //      (A partir das 21h) com a mesma animação letra a letra
+                        const toastSection = document.getElementById('toast-section');
+                        const canecasWrap = document.getElementById('canecas-wrap');
+                        const dateLeft = document.getElementById('date-left');
+                        const dateRight = document.getElementById('date-right');
 
-	// Todas as camadas que devem "flutuar" com o movimento: balões (ecrã 1)
-	// e a camada vazia do ecrã 2, pronta para receber novas imagens depois.
-	const movingLayers = document.querySelectorAll('.cover-balloon-layer, .parallax-layer');
+                        // Espera 2s depois das bolas de cristal aparecerem
+                        setTimeout(() => {
+                                if (toastSection) toastSection.classList.add('show');
 
-	let targetX = 0, targetY = 0;
-	let currentX = 0, currentY = 0;
+                                // 1) Fase "toast" — canecas juntam-se no centro (~1s depois)
+                                setTimeout(() => {
+                                        if (canecasWrap) canecasWrap.classList.add('toast');
+                                }, 900);
 
-	function renderScene() {
-		currentX += (targetX - currentX) * 0.08;
-		currentY += (targetY - currentY) * 0.08;
+                                // 2) Fase "V" — leve inclinação para fora (~1.4s depois do toast)
+                                setTimeout(() => {
+                                        if (canecasWrap) {
+                                                canecasWrap.classList.remove('toast');
+                                                canecasWrap.classList.add('v-shape');
+                                        }
+                                }, 2300);
 
-		// Fundo em cetim permanece perfeitamente estático
-		movingLayers.forEach((layer) => {
-			layer.style.transform = `translate3d(${currentX * 0.8}px, ${currentY * 0.8}px, 0)`;
-		});
+                                // 3) Aparece o bloco esquerdo (com traços) — ~1s depois do V
+                                setTimeout(() => {
+                                        if (dateLeft) dateLeft.classList.add('show');
 
-		requestAnimationFrame(renderScene);
-	}
+                                        // Pequeno atraso para as linhas (traços) desenharem primeiro
+                                        setTimeout(() => {
+                                                if (dateLeft) dateLeft.classList.add('animate');
+                                        }, 650);
+                                }, 3300);
 
-	function onMouseMove(e) {
-		const nx = (e.clientX / window.innerWidth) * 2 - 1;
-		const ny = (e.clientY / window.innerHeight) * 2 - 1;
-		targetX = nx * 10;
-		targetY = ny * 8;
-	}
+                                // 4) Quando o lado esquerdo terminar, aparece o lado direito
+                                //    Lado esquerdo: 6 letras + 5 letras = 11 letras
+                                //    Tempo total: ~ (11 * 85ms) + 650ms (anim) ≈ 1585ms
+                                setTimeout(() => {
+                                        if (dateRight) dateRight.classList.add('show');
 
-	function onTouchMove(e) {
-		if (!e.touches || e.touches.length === 0) return;
-		const touch = e.touches[0];
-		const nx = (touch.clientX / window.innerWidth) * 2 - 1;
-		const ny = (touch.clientY / window.innerHeight) * 2 - 1;
-		targetX = nx * 10;
-		targetY = ny * 8;
-	}
+                                        setTimeout(() => {
+                                                if (dateRight) dateRight.classList.add('animate');
+                                        }, 650);
+                                }, 3300 + 1700);
+                        }, 4400);
+                }, maxTime);
+        }
 
-	function onOrientation(e) {
-		if (e.beta === null || e.gamma === null) return;
-		const gamma = Math.max(-20, Math.min(20, e.gamma));
-		const beta = Math.max(-20, Math.min(20, e.beta - 45));
-		targetX = (gamma / 20) * 10;
-		targetY = (beta / 20) * 8;
-	}
+        // ===================== EFEITO DE MOVIMENTO (FUNDO ESTÁTICO / BALÕES MÓVEIS) =====================
+        function requestTiltPermission() {
+                if (typeof DeviceOrientationEvent !== 'undefined' &&
+                        typeof DeviceOrientationEvent.requestPermission === 'function') {
+                        DeviceOrientationEvent.requestPermission().catch(() => { });
+                }
+        }
+        document.body.addEventListener('click', requestTiltPermission, { once: true });
 
-	window.addEventListener('mousemove', onMouseMove, { passive: true });
-	window.addEventListener('touchmove', onTouchMove, { passive: true });
-	window.addEventListener('deviceorientation', onOrientation, { passive: true });
+        // Todas as camadas que devem "flutuar" com o movimento: balões (ecrã 1)
+        // e a camada vazia do ecrã 2, pronta para receber novas imagens depois.
+        const movingLayers = document.querySelectorAll('.cover-balloon-layer, .parallax-layer');
 
-	renderScene();
+        let targetX = 0, targetY = 0;
+        let currentX = 0, currentY = 0;
+
+        function renderScene() {
+                currentX += (targetX - currentX) * 0.08;
+                currentY += (targetY - currentY) * 0.08;
+
+                // Fundo em cetim permanece perfeitamente estático
+                movingLayers.forEach((layer) => {
+                        layer.style.transform = `translate3d(${currentX * 0.8}px, ${currentY * 0.8}px, 0)`;
+                });
+
+                requestAnimationFrame(renderScene);
+        }
+
+        function onMouseMove(e) {
+                const nx = (e.clientX / window.innerWidth) * 2 - 1;
+                const ny = (e.clientY / window.innerHeight) * 2 - 1;
+                targetX = nx * 10;
+                targetY = ny * 8;
+        }
+
+        function onTouchMove(e) {
+                if (!e.touches || e.touches.length === 0) return;
+                const touch = e.touches[0];
+                const nx = (touch.clientX / window.innerWidth) * 2 - 1;
+                const ny = (touch.clientY / window.innerHeight) * 2 - 1;
+                targetX = nx * 10;
+                targetY = ny * 8;
+        }
+
+        function onOrientation(e) {
+                if (e.beta === null || e.gamma === null) return;
+                const gamma = Math.max(-20, Math.min(20, e.gamma));
+                const beta = Math.max(-20, Math.min(20, e.beta - 45));
+                targetX = (gamma / 20) * 10;
+                targetY = (beta / 20) * 8;
+        }
+
+        window.addEventListener('mousemove', onMouseMove, { passive: true });
+        window.addEventListener('touchmove', onTouchMove, { passive: true });
+        window.addEventListener('deviceorientation', onOrientation, { passive: true });
+
+        renderScene();
 });
 
