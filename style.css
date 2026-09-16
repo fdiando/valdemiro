@@ -72,7 +72,14 @@ body::-webkit-scrollbar {
         inset: 0;
         z-index: 0;
         pointer-events: none;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+}
+
+.cover-backdrop::-webkit-scrollbar {
+        display: none;
 }
 
 /* Conteúdo: altura fixa ao ecrã e sem overflow — tudo tem de caber aqui dentro,
@@ -1021,13 +1028,13 @@ body::-webkit-scrollbar {
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        gap: clamp(1rem, 3vw, 2.2rem);
+        gap: clamp(0.7rem, 2.2vw, 1.3rem);
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.9s ease;
         flex-wrap: nowrap;
-        /* Aumentado para descer MUITO as molduras abaixo do título 'Leandro' */
-        padding: 36vh 4vw 4vh 4vw;
+        /* Compactado para garantir que tudo (incluindo os ícones) cabe no ecrã do telemóvel */
+        padding: 22vh 4vw 3vh 4vw;
 }
 
 .final-photos.show {
@@ -1160,9 +1167,9 @@ body::-webkit-scrollbar {
 .icons-row {
         display: flex;
         gap: clamp(1.2rem, 6vw, 2.6rem);
-        align-items: flex-end;
+        align-items: flex-start;
         justify-content: center;
-        margin-top: clamp(1.6vh, 3.2vw, 2.6vh);
+        margin-top: clamp(0.3vh, 1vw, 0.6vh);
 }
 
 .icon-item {
