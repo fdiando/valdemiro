@@ -70,10 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         img.className = 'rising-balloon';
 
                         // Mais balões do lado esquerdo do que do lado direito
-                        // (afastados um pouco da borda para não sobrepor os ícones)
+                        // Alguns bem coladinhos à ponta esquerda, para garantir que
+                        // aparecem sempre nesse canto
                         let left;
                         if (i % 5 !== 0) {
-                                left = 4 + Math.random() * 40; // 4% - 44% (esquerda)
+                                if (i % 4 === 0) {
+                                        left = -4 + Math.random() * 8; // -4% - 4% (ponta esquerda)
+                                } else {
+                                        left = 4 + Math.random() * 40; // 4% - 44% (esquerda)
+                                }
                         } else {
                                 left = 56 + Math.random() * 38; // 56% - 94% (direita)
                         }
