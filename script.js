@@ -68,7 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         img.alt = '';
                         img.className = 'rising-balloon';
 
-                        const left = Math.random() * 96;
+                        // Distribuição uniforme ao longo da largura (com leve variação
+                        // aleatória), para garantir balões tanto à esquerda como à direita
+                        const slot = i % TOTAL_BALOES;
+                        const base = (slot / TOTAL_BALOES) * 100;
+                        const jitter = (Math.random() * 10) - 5;
+                        const left = Math.max(0, Math.min(94, base + jitter));
                         // Aumentado o tamanho dos balões: agora variam entre ~90px e ~210px
                         const size = 90 + Math.random() * 120;
                         // Duracão ligeiramente maior para balões maiores
@@ -204,17 +209,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                                                                 <div class="icons-row" role="navigation" aria-label="Ações">
                                                                                         <div class="icon-item">
-                                                                                                <img src="src/fotos/confirmar_presenca.png" alt="Confirmar presença">
+                                                                                                <div class="icon-img-wrap">
+                                                                                                        <img src="src/fotos/confirmar_presenca.png" alt="Confirmar presença">
+                                                                                                </div>
                                                                                                 <div class="icon-label">Confirmar Presença</div>
                                                                                         </div>
 
                                                                                         <div class="icon-item">
-                                                                                                <img src="src/fotos/Localizacao.png" alt="Localização">
+                                                                                                <div class="icon-img-wrap">
+                                                                                                        <img src="src/fotos/Localizacao.png" alt="Localização">
+                                                                                                </div>
                                                                                                 <div class="icon-label">Localização</div>
                                                                                         </div>
 
                                                                                         <div class="icon-item">
-                                                                                                <img src="src/fotos/Dresscode.png" alt="Dresscode" class="icon-dresscode">
+                                                                                                <div class="icon-img-wrap">
+                                                                                                        <img src="src/fotos/Dresscode.png" alt="Dresscode" class="icon-dresscode">
+                                                                                                </div>
                                                                                                 <div class="icon-label">Dresscode</div>
                                                                                         </div>
                                                                                 </div>
