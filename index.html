@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Vinguila</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+	<audio id="bg-music" src="src/audio/musica.mp3" loop preload="auto"></audio>
+
+	<!-- ============ ECRÃ — CAPA (fundo + nomes + convite) ============ -->
+	<section id="cover" class="screen active">
+
+		<!-- Fundo fixo: cobre sempre o ecrã inteiro, mesmo que o conteúdo abaixo
+		     seja mais alto e a página tenha scroll -->
+		<div class="cover-backdrop">
+			<div class="cover-layer cover-bg-layer">
+				<img src="src/fundo/fundo2.png" alt="" class="scene-bg">
+			</div>
+
+			<div class="cover-shade"></div>
+
+			<div class="cover-layer cover-balloon-layer" id="rising-balloons"></div>
+
+			<div class="birthday-reveal" id="birthday-reveal">
+				<img src="src/fundo/valdemiro1.png" alt="Happy Birthday" class="happy-birthday-img">
+				<div class="valdemiro-face-wrap">
+					<img src="src/fundo/valdemiro.png" alt="Valdemiro" class="valdemiro-face">
+				</div>
+			</div>
+		</div>
+
+		<!-- Conteúdo: flui normalmente por cima do fundo fixo, cresce à vontade
+		     e a página faz scroll sozinha se não couber tudo num ecrã -->
+		<div class="cover-scene" id="cover-scene">
+
+			<!-- Logótipo do template + nome da marca (entrada letra a letra) -->
+			<div class="cover-names-top">
+				<img src="src/fundo/template.png" alt="" class="cover-template-logo">
+				<h1 class="couple-names neon-text brand-name" aria-label="Vinguila Diandra">
+					<span class="letter" aria-hidden="true" style="--i:0">V</span>
+					<span class="letter" aria-hidden="true" style="--i:1">i</span>
+					<span class="letter" aria-hidden="true" style="--i:2">n</span>
+					<span class="letter" aria-hidden="true" style="--i:3">g</span>
+					<span class="letter" aria-hidden="true" style="--i:4">u</span>
+					<span class="letter" aria-hidden="true" style="--i:5">i</span>
+					<span class="letter" aria-hidden="true" style="--i:6">l</span>
+					<span class="letter" aria-hidden="true" style="--i:7">a</span>
+					<span class="letter letter-space" aria-hidden="true" style="--i:8">&nbsp;</span>
+					<span class="letter" aria-hidden="true" style="--i:9">D</span>
+					<span class="letter" aria-hidden="true" style="--i:10">i</span>
+					<span class="letter" aria-hidden="true" style="--i:11">a</span>
+					<span class="letter" aria-hidden="true" style="--i:12">n</span>
+					<span class="letter" aria-hidden="true" style="--i:13">d</span>
+					<span class="letter" aria-hidden="true" style="--i:14">r</span>
+					<span class="letter" aria-hidden="true" style="--i:15">a</span>
+				</h1>
+			</div>
+
+			<div class="invitation-intro">
+				<p class="reveal-item invite-label" style="--order:0">É com prazer que convido-te</p>
+
+				<div class="reveal-item ornament-divider" style="--order:1">
+					<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4c1.4 2 1.4 4-0 5.5C10.6 8 10.6 6 12 4Z" fill="currentColor"/><path d="M12 4c-1.4 2-1.4 4 0 5.5C13.4 8 13.4 6 12 4Z" fill="currentColor"/><path d="M6 9c2.2-.6 3.8.2 4.6 2.2C8.4 12 6.6 11 6 9Z" fill="currentColor"/><path d="M18 9c-2.2-.6-3.8.2-4.6 2.2C15.6 12 17.4 11 18 9Z" fill="currentColor"/><circle cx="12" cy="10" r="1.3" fill="currentColor"/></svg>
+				</div>
+
+				<p class="reveal-item invite-label" style="--order:2">Para o meu</p>
+
+				<h2 class="reveal-item intro-title" style="--order:3">
+					<span class="title-small">Coffee break de</span>
+					<span class="title-big">Inauguração</span>
+				</h2>
+
+				<div class="reveal-item ornament-divider" style="--order:4">
+					<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4c1.4 2 1.4 4-0 5.5C10.6 8 10.6 6 12 4Z" fill="currentColor"/><path d="M12 4c-1.4 2-1.4 4 0 5.5C13.4 8 13.4 6 12 4Z" fill="currentColor"/><path d="M6 9c2.2-.6 3.8.2 4.6 2.2C8.4 12 6.6 11 6 9Z" fill="currentColor"/><path d="M18 9c-2.2-.6-3.8.2-4.6 2.2C15.6 12 17.4 11 18 9Z" fill="currentColor"/><circle cx="12" cy="10" r="1.3" fill="currentColor"/></svg>
+				</div>
+
+				<p class="reveal-item intro-description" style="--order:5">
+					Venha conhecer o novo<br>
+					studio de beleza<br>
+					que vai te deixar<br>
+					<strong>ainda mais linda!</strong>
+				</p>
+
+				<div class="reveal-item ornament-divider" style="--order:6">
+					<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4c1.4 2 1.4 4-0 5.5C10.6 8 10.6 6 12 4Z" fill="currentColor"/><path d="M12 4c-1.4 2-1.4 4 0 5.5C13.4 8 13.4 6 12 4Z" fill="currentColor"/><path d="M6 9c2.2-.6 3.8.2 4.6 2.2C8.4 12 6.6 11 6 9Z" fill="currentColor"/><path d="M18 9c-2.2-.6-3.8.2-4.6 2.2C15.6 12 17.4 11 18 9Z" fill="currentColor"/><circle cx="12" cy="10" r="1.3" fill="currentColor"/></svg>
+				</div>
+
+				<button id="btn-convite" class="reveal-item" style="--order:7">
+   				 	Ver detalhes
+				</button>
+			</div>
+
+		</div>
+	</section>
+
+	<!-- ============ ECRÃ — ENVELOPE ============ -->
+	<section id="envelope-screen" class="screen active">
+		<div class="envelope-wrap" id="envelope-wrap" aria-label="Convite">
+			<img src="src/envelope/envelope2.png" alt="" class="envelope-body" id="envelope-body" />
+			<div class="envelope-flap-wrapper" id="flap-wrapper">
+				<img src="src/envelope/envelope1.png" alt="" class="envelope-flap" />
+			</div>
+			<img src="src/envelope/lacinho.png" alt="" class="envelope-lacinho" id="envelope-lacinho" role="button"
+				aria-label="Tocar no laço para abrir o convite" />
+		</div>
+	</section>
+
+	<!-- ============ ECRÃ — SÓ FUNDO (a preencher depois com imagens em parallax) ============ -->
+	<section id="invitation-page" class="screen">
+		<div class="cover-scene" id="page2-scene">
+			<div class="cover-layer cover-bg-layer">
+				<img src="src/fundo/fundo2.png" alt="" class="scene-bg">
+			</div>
+			<div class="cover-shade"></div>
+
+			<!-- Data e hora do evento — calendário "Save the Date" -->
+			<div class="date-info">
+				<p class="savethedate-label">Save the date</p>
+
+				<div class="calendar-card">
+					<p class="calendar-month">Setembro <span class="calendar-year">2026</span></p>
+
+					<div class="calendar-weekdays">
+						<span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span>
+					</div>
+
+					<div class="calendar-days">
+						<span class="day empty"></span><span class="day empty"></span>
+						<span class="day">1</span><span class="day">2</span>
+						<span class="day highlight">
+							<svg class="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+								<path d="M12 21s-6.7-4.4-9.3-8.4C1 9.7 2.2 6 6 6c2.1 0 3.5 1.2 6 4 2.5-2.8 3.9-4 6-4 3.8 0 5 3.7 3.3 6.6C18.7 16.6 12 21 12 21z" fill="currentColor"/>
+							</svg>
+							<span class="day-num">3</span>
+						</span>
+						<span class="day">4</span><span class="day">5</span>
+						<span class="day">6</span><span class="day">7</span><span class="day">8</span><span class="day">9</span><span class="day">10</span><span class="day">11</span><span class="day">12</span>
+						<span class="day">13</span><span class="day">14</span><span class="day">15</span><span class="day">16</span><span class="day">17</span><span class="day">18</span><span class="day">19</span>
+						<span class="day">20</span><span class="day">21</span><span class="day">22</span><span class="day">23</span><span class="day">24</span><span class="day">25</span><span class="day">26</span>
+						<span class="day">27</span><span class="day">28</span><span class="day">29</span><span class="day">30</span>
+					</div>
+				</div>
+
+				<p class="date-time-label">Horas</p>
+				<p class="date-time-value">17:00</p>
+			</div>
+
+			<!-- Informações do evento — círculos em zigzag (dress code, localização, confirmar presença, coffee break) -->
+			<div class="event-timeline">
+
+				<div class="timeline-item item-left">
+					<div class="timeline-circle timeline-reveal" style="--order:0">
+						<img src="src/fotos/coffe_break.png" alt="Coffee Break" class="timeline-icon">
+					</div>
+					<p class="timeline-label timeline-reveal" style="--order:1">Coffee Break</p>
+				</div>
+
+				<svg class="timeline-arrow arrow-down-right timeline-reveal" style="--order:2" viewBox="0 0 70 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M6 6 C 30 10, 20 38, 56 44" stroke="#1a1a1a" stroke-width="1.4" stroke-linecap="round"/>
+					<path d="M48 39 L57 45 L50 53" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+
+				<div class="timeline-item item-right">
+					<div class="timeline-circle timeline-reveal" style="--order:3">
+						<img src="src/fotos/Dresscode.png" alt="Dress Code" class="timeline-icon">
+					</div>
+					<p class="timeline-label timeline-reveal" style="--order:4">Dress Code</p>
+				</div>
+
+				<svg class="timeline-arrow arrow-down-left timeline-reveal" style="--order:5" viewBox="0 0 70 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M64 6 C 40 10, 50 38, 14 44" stroke="#1a1a1a" stroke-width="1.4" stroke-linecap="round"/>
+					<path d="M22 39 L13 45 L20 53" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+
+				<a class="timeline-item item-left timeline-link" href="https://www.google.com/maps/place/Farmacia+Gika/@-8.8357931,13.2301353,17z/data=!3m1!4b1!4m6!3m5!1s0x1a51f3f469440f45:0x67ec656f8671986f!8m2!3d-8.8357931!4d13.2327102!16s%2Fg%2F11g1gmfsms?entry=ttu&g_ep=EgoyMDI2MDgyNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
+					<div class="timeline-circle timeline-reveal" style="--order:6">
+						<img src="src/fotos/Localizacao.png" alt="Localização" class="timeline-icon">
+					</div>
+					<p class="timeline-label timeline-reveal" style="--order:7">Localização</p>
+				</a>
+
+				<svg class="timeline-arrow arrow-down-right timeline-reveal" style="--order:8" viewBox="0 0 70 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M6 6 C 30 10, 20 38, 56 44" stroke="#1a1a1a" stroke-width="1.4" stroke-linecap="round"/>
+					<path d="M48 39 L57 45 L50 53" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+
+				<a class="timeline-item item-right timeline-link" href="https://wa.me/244998128039?text=Ol%C3%A1%20Vinguila%21%20Gostaria%20de%20confirmar%20a%20minha%20presen%C3%A7a%20na%20inaugura%C3%A7%C3%A3o%20do%20teu%20novo%20studio." target="_blank" rel="noopener">
+					<div class="timeline-circle timeline-reveal" style="--order:9">
+						<img src="src/fotos/confirmar_presenca.png" alt="Confirmar Presença" class="timeline-icon">
+					</div>
+					<p class="timeline-label timeline-reveal" style="--order:10">Confirmar Presença</p>
+				</a>
+
+			</div>
+
+			<p class="await-text timeline-reveal" style="--order:11">Espero por você</p>
+
+			<!-- Camada pronta para receber imagens com o mesmo efeito de parallax dos balões -->
+			<div class="cover-layer parallax-layer" id="page2-parallax-layer"></div>
+		</div>
+	</section>
+
+	<script src="script.js"></script>
+</body>
+
+</html>

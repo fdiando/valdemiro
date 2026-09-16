@@ -1,0 +1,863 @@
+:root {
+        --brown-dark: #2b1a10;
+        --brown: #8a5a34;
+        --brown-light: #b98a5e;
+        --gold: #d9b26a;
+        --cream: #f3e9db;
+        --text-dark: #2b1a10;
+}
+
+* {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+}
+
+html,
+body {
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        font-family: 'Cormorant Garamond', serif;
+        background: var(--cream);
+        color: var(--text-dark);
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+        display: none;
+}
+
+.screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        height: 100dvh;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+}
+
+.screen::-webkit-scrollbar {
+        display: none;
+}
+
+.screen.active {
+        display: block;
+        opacity: 1;
+}
+
+/* ============ ECRÃ — CAPA / CENA ============ */
+#cover {
+        z-index: 10;
+        background: transparent;
+        overflow: hidden;
+        /* página estática — sem scroll, como pedido */
+}
+
+#cover.active {
+        display: block;
+}
+
+/* Fundo fixo — cobre sempre o ecrã visível */
+.cover-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+}
+
+/* Conteúdo: altura fixa ao ecrã e sem overflow — tudo tem de caber aqui dentro,
+   por isso os espaços/tamanhos abaixo foram todos comprimidos */
+.cover-scene {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100dvh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+}
+
+.cover-layer {
+        position: absolute;
+        pointer-events: none;
+        transform-style: preserve-3d;
+        will-change: transform;
+        --move-x: 0px;
+        --move-y: 0px;
+}
+
+.cover-bg-layer {
+        z-index: 1;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: none;
+}
+
+.scene-bg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        display: block;
+        filter: saturate(0.85) brightness(0.98);
+}
+
+.cover-shade {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+                linear-gradient(to bottom,
+                        rgba(20, 10, 5, 0.04) 0%,
+                        rgba(20, 10, 5, 0.02) 45%,
+                        rgba(15, 8, 4, 0.10) 75%,
+                        rgba(15, 8, 4, 0.30) 100%);
+}
+
+/* Balões (substituem as antigas plantas) — camada com efeito parallax */
+.cover-balloon-layer {
+        z-index: 5;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+}
+
+.rising-balloon {
+        position: absolute;
+        bottom: -18%;
+        width: 72px;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.25));
+        opacity: 0;
+        animation-name: balloon-rise;
+        animation-timing-function: ease-in;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        will-change: transform, opacity;
+}
+
+@keyframes balloon-rise {
+        0% {
+                transform: translateY(0) translateX(0) rotate(var(--sway-start, -4deg));
+                opacity: 0;
+        }
+        10% {
+                opacity: 1;
+        }
+        80% {
+                opacity: 1;
+        }
+        100% {
+                transform: translateY(-124vh) translateX(var(--sway-x, 24px)) rotate(var(--sway-end, 4deg));
+                opacity: 0;
+        }
+}
+
+/* Entrada — "Happy Birthday" + foto do Valdemiro, centralizadas no topo */
+.birthday-reveal {
+        position: absolute;
+        top: 6%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 6;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        pointer-events: none;
+}
+
+.happy-birthday-img {
+        width: min(80%, 380px);
+        height: auto;
+        display: block;
+        opacity: 0;
+        transform: scale(0.08);
+        transition: transform 0.9s cubic-bezier(.34, 1.56, .64, 1), opacity 0.5s ease;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+}
+
+.birthday-reveal.show .happy-birthday-img {
+        opacity: 1;
+        transform: scale(1);
+}
+
+.valdemiro-face-wrap {
+        margin-top: 10px;
+        opacity: 0;
+        transform: scale(0.5);
+        transition: opacity 0.6s ease 1.1s, transform 0.6s ease 1.1s;
+}
+
+.birthday-reveal.show .valdemiro-face-wrap {
+        opacity: 1;
+        transform: scale(1);
+}
+
+.valdemiro-face {
+        display: block;
+        width: min(44%, 190px);
+        margin: 0 auto;
+        height: auto;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+}
+
+.birthday-reveal.show .valdemiro-face {
+        animation: face-spin 3.4s linear 1.7s infinite;
+}
+
+@keyframes face-spin {
+        from {
+                transform: rotate(0deg);
+        }
+
+        to {
+                transform: rotate(360deg);
+        }
+}
+
+/* Logótipo do template + nome da marca, no topo */
+.cover-names-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        top: 1vh;
+        pointer-events: none;
+}
+
+.cover-template-logo 
+{
+    width: min(100vw, 600px);
+    height: auto;
+    display: block;
+
+    position: relative;
+    top: -50px;
+    left: -20px;
+}
+
+.neon-text {
+        font-family: 'Alex Brush', 'Great Vibes', cursive;
+        font-weight: 400;
+        color: #1a1a1a;
+        text-shadow:
+                0 0 6px rgba(255, 255, 255, 0.55),
+                0 0 16px rgba(217, 178, 106, 0.65),
+                0 0 34px rgba(217, 178, 106, 0.4);
+        line-height: 1.15;
+}
+
+.couple-names {
+    font-size: clamp(2.1rem, 6.5vh, 2.8rem);
+    margin-top: 0.15rem;
+
+    position: relative;
+    top: -30px;
+}
+
+/* ============ NOME DA MARCA — ENTRADA LETRA A LETRA ============ */
+.brand-name {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+}
+
+/* brilho só liga depois do envelope abrir (JS acrescenta .animate) — ver script.js */
+.brand-name.animate {
+        animation: nameGlowPulse 2s ease-out 1.9s;
+}
+
+.letter {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(80px) scale(0.3) rotate(8deg);
+        filter: blur(12px);
+}
+
+.letter-space {
+        width: 0.28em;
+}
+
+@keyframes letterReveal {
+        0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.7);
+                filter: blur(6px);
+        }
+
+        55% {
+                opacity: 1;
+                filter: blur(0);
+        }
+
+        72% {
+                transform: translateY(-6px) scale(1.08);
+                filter: blur(0);
+        }
+
+        100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+        }
+}
+
+/* brilho suave que "acende" o nome assim que todas as letras chegam */
+@keyframes nameGlowPulse {
+        0% {
+                text-shadow:
+                        0 0 6px rgba(255, 255, 255, 0.55),
+                        0 0 16px rgba(217, 178, 106, 0.65),
+                        0 0 34px rgba(217, 178, 106, 0.4);
+        }
+
+        45% {
+                text-shadow:
+                        0 0 14px rgba(255, 255, 255, 0.95),
+                        0 0 36px rgba(217, 178, 106, 1),
+                        0 0 64px rgba(217, 178, 106, 0.8);
+        }
+
+        100% {
+                text-shadow:
+                        0 0 6px rgba(255, 255, 255, 0.55),
+                        0 0 16px rgba(217, 178, 106, 0.65),
+                        0 0 34px rgba(217, 178, 106, 0.4);
+        }
+}
+
+/* ============ ECRÃ — ENVELOPE ============ */
+#envelope-screen {
+        padding: 0;
+        z-index: 20;
+        background: transparent;
+}
+
+#envelope-screen.active {
+        display: block;
+}
+
+.envelope-wrap {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        opacity: 1;
+        transition: opacity 1.5s ease 4.5s, transform 1.5s ease 4.5s;
+        cursor: pointer;
+        background: transparent;
+}
+
+.envelope-wrap.open {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(1.08);
+}
+
+.envelope-body {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 100dvh;
+        object-fit: cover;
+        object-position: center 25%;
+        /* Ponto focal mais acima para mostrar mais conteúdo na parte inferior */
+        transform: translateY(73px) scale(1.02);
+        /* Desce o envelope 2 e dá uma leve escala para cobrir o fundo */
+        z-index: 1;
+        transition: transform 3.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease 4s;
+}
+
+.envelope-body.open {
+        transform: translateY(100%);
+        opacity: 0;
+}
+
+.envelope-flap-wrapper {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        transform: translateY(-35%);
+        transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease 2.5s;
+}
+
+.envelope-flap-wrapper.open {
+        transform: translateY(-110%);
+        opacity: 0;
+}
+
+.envelope-flap {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+}
+
+/* ---- Laço (3ª camada, por cima de tudo) ---- */
+.envelope-lacinho {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    width: 115%;
+    max-width: 650px;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 42%;
+    z-index: 3;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+    transition: transform 2s ease;
+}
+
+.envelope-lacinho:active {
+        transform: translate(-50%, -50%) scale(0.96);
+}
+
+.envelope-lacinho.falling {
+        animation: lacoDeslizaParaBaixo 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        pointer-events: none;
+}
+
+@keyframes lacoDeslizaParaBaixo {
+        0% {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+        }
+
+        100% {
+                transform: translate(-50%, 150%);
+                opacity: 0;
+        }
+}
+
+/* ============ RESPONSIVO (ecrãs maiores) ============ */
+@media (min-width: 600px) {
+        .couple-names {
+                font-size: 4.4rem;
+        }
+
+        .cover-template-logo {
+                width: min(40vw, 420px);
+        }
+}
+
+
+.letter.animate {
+    animation: letterReveal 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-delay: calc(var(--i) * 90ms);
+}
+
+
+/* ============ TEXTOS DO CONVITE (ecrã 1) ============ */
+.invitation-intro {
+        width: 100%;
+        margin-top: clamp(0.3rem, 1.4vh, 0.9rem);
+        text-align: center;
+        color: #2a2622;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(0.3rem, 1vh, 0.6rem);
+        /* ↓ era 1.3rem — era o maior "ladrão" de espaço vertical */
+        padding: 0 9vw 1.2vh;
+        font-family: 'Montserrat', sans-serif;
+}
+
+.reveal-item {
+        opacity: 0;
+        transform: translateY(20px);
+}
+
+.reveal-item.animate {
+        animation: revealText 0.8s ease forwards;
+        animation-delay: calc(var(--order) * 0.35s);
+}
+
+@keyframes revealText {
+        to {
+                opacity: 1;
+                transform: translateY(0);
+        }
+}
+
+.invite-label {
+        font-size: clamp(0.78rem, 2vh, 0.95rem);
+        letter-spacing: 0.18em;
+        font-weight: 500;
+        color: #3a352f;
+}
+
+/* Divisor ornamental (linha + flor) */
+.ornament-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: min(55%, 190px);
+        color: var(--gold);
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--gold));
+}
+
+.ornament-divider::after {
+        background: linear-gradient(to left, transparent, var(--gold));
+}
+
+.ornament-divider svg {
+        width: clamp(11px, 2vh, 15px);
+        height: clamp(11px, 2vh, 15px);
+        flex-shrink: 0;
+}
+
+.intro-title {
+        color: var(--gold);
+        font-family: 'Cormorant Garamond', serif;
+        letter-spacing: 0.04em;
+        line-height: 1.15;
+}
+
+.intro-title .title-small {
+        display: block;
+        font-size: clamp(0.88rem, 2.2vh, 1.05rem);
+        letter-spacing: 0.16em;
+        font-weight: 600;
+        text-transform: uppercase;
+}
+
+.intro-title .title-big {
+        display: block;
+        font-size: clamp(1.9rem, 5vh, 2.4rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-top: 0.1rem;
+}
+
+.intro-description {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(0.74rem, 1.9vh, 0.88rem);
+        letter-spacing: 0.04em;
+        line-height: 1.4;
+        /* ↓ era 1.7 — bem mais compacto nas 4 linhas */
+        text-transform: uppercase;
+        color: #2a2622;
+}
+
+.intro-description strong {
+        font-weight: 700;
+}
+
+#btn-convite {
+        position: relative;
+        z-index: 8;
+        align-self: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.1rem;
+        padding: clamp(0.4rem, 1.2vh, 0.6rem) 1.4rem;
+        border-radius: 999px;
+        border: 1.5px solid var(--gold);
+        background: transparent;
+        color: #141414;
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(0.62rem, 1.5vh, 0.74rem);
+        font-weight: 600;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        cursor: pointer;
+        pointer-events: auto;
+}
+
+#btn-convite svg {
+        width: 15px;
+        height: 15px;
+}
+
+/* ============ ECRÃ 2 — SÓ FUNDO + CAMADA PARALLAX (a preencher depois) ============ */
+#invitation-page {
+        background: #fff;
+        z-index: 15;
+}
+
+#invitation-page .cover-scene {
+        background: #fff;
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+        padding-bottom: clamp(2rem, 6vh, 3rem);
+}
+
+.parallax-layer {
+        z-index: 5;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+}
+
+/* ---- Data e hora (ecrã 2) — calendário "Save the Date" ---- */
+.date-info {
+        position: relative;
+        z-index: 6;
+        width: 100%;
+        margin-top: clamp(1.2rem, 5vh, 2.2rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        padding: 0 8vw;
+}
+
+.savethedate-label {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(1.25rem, 3.6vh, 1.7rem);
+        letter-spacing: 0.03em;
+        color: var(--brown-dark);
+        margin-bottom: clamp(0.6rem, 1.6vh, 0.9rem);
+}
+
+.calendar-card {
+        width: min(66vw, 240px);
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid var(--gold);
+        border-radius: 12px;
+        padding: clamp(0.6rem, 1.8vh, 0.9rem) clamp(0.5rem, 2vw, 0.75rem);
+        box-shadow: 0 6px 22px rgba(43, 26, 16, 0.12);
+        backdrop-filter: blur(2px);
+}
+
+.calendar-month {
+        font-family: 'Alex Brush', 'Great Vibes', cursive;
+        font-size: clamp(1.1rem, 2.8vh, 1.35rem);
+        color: var(--brown-dark);
+        margin-bottom: clamp(0.35rem, 1vh, 0.55rem);
+}
+
+.calendar-month .calendar-year {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(0.66rem, 1.5vh, 0.78rem);
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        vertical-align: middle;
+}
+
+.calendar-weekdays,
+.calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        justify-items: center;
+}
+
+.calendar-weekdays {
+        padding-bottom: clamp(0.25rem, 0.8vh, 0.4rem);
+        border-bottom: 1px solid rgba(138, 90, 52, 0.25);
+        margin-bottom: clamp(0.25rem, 0.8vh, 0.4rem);
+}
+
+.calendar-weekdays span {
+        font-size: clamp(0.42rem, 1vh, 0.5rem);
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: var(--brown);
+}
+
+.calendar-days .day {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(0.54rem, 1.3vh, 0.64rem);
+        color: #3a352f;
+        margin: clamp(0px, 0.2vh, 2px) 0;
+}
+
+.calendar-days .day.empty {
+        pointer-events: none;
+}
+
+.calendar-days .day.highlight {
+        position: relative;
+        color: var(--gold);
+        font-weight: 700;
+}
+
+.calendar-days .day.highlight .heart-icon {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        color: var(--gold);
+        filter: drop-shadow(0 2px 5px rgba(217, 178, 106, 0.55));
+}
+
+.calendar-days .day.highlight .day-num {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+        font-weight: 700;
+        transform: translateY(-1px);
+}
+
+/* ---- Timeline de informações (ecrã 2) — círculos em zigzag ---- */
+.event-timeline {
+        position: relative;
+        z-index: 6;
+        width: 100%;
+        max-width: 300px;
+        margin: clamp(1.6rem, 5vh, 2.4rem) auto 0;
+        padding: 0 10vw;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+}
+
+.timeline-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: fit-content;
+}
+
+.timeline-item.item-left {
+        align-self: flex-start;
+        margin-left: -20px;
+        margin-top: -8px;
+}
+
+.timeline-item.item-right {
+        align-self: flex-end;
+        margin-top: -8px;
+}
+
+.timeline-circle {
+        width: clamp(80px, 24vw, 112px);
+        height: clamp(80px, 24vw, 112px);
+        border-radius: 50%;
+        border: 1.5px solid #1a1a1a;
+        background: rgba(255, 255, 255, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+}
+
+.timeline-icon {
+        width: 68%;
+        height: 68%;
+        object-fit: contain;
+        pointer-events: none;
+}
+
+.timeline-link {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+}
+
+.timeline-label {
+        margin-top: 0.55rem;
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(0.62rem, 1.5vh, 0.72rem);
+        letter-spacing: 0.1em;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-align: center;
+        color: #2a2622;
+        max-width: 110px;
+}
+
+.timeline-arrow {
+        width: clamp(58px, 15vw, 74px);
+        height: auto;
+        margin-top: 10px;
+        margin-bottom: -2px;
+        position: relative;
+        left: 12px;
+}
+
+.arrow-down-right {
+        align-self: flex-start;
+        margin-left: clamp(18px, 7vw, 40px);
+}
+
+.arrow-down-left {
+        align-self: flex-end;
+        margin-right: clamp(18px, 7vw, 40px);
+}
+
+.await-text {
+        position: relative;
+        z-index: 6;
+        width: 100%;
+        text-align: center;
+        margin-top: clamp(1.6rem, 5vh, 2.4rem);
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(1.3rem, 3.6vh, 1.7rem);
+        color: var(--brown-dark);
+}
+
+/* Animação de entrada: um elemento de cada vez (círculo → texto → seta) */
+.timeline-reveal {
+        opacity: 0;
+        transform: translateY(16px);
+}
+
+.timeline-reveal.animate {
+        animation: revealText 0.7s ease forwards;
+        animation-delay: calc(var(--order) * 0.35s);
+}
+
+.date-time-label {
+        margin-top: clamp(0.7rem, 1.8vh, 1rem);
+        font-size: clamp(0.62rem, 1.5vh, 0.72rem);
+        letter-spacing: 0.18em;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #3a352f;
+}
+
+.date-time-value {
+        margin-top: 0.2rem;
+        font-size: clamp(1rem, 2.6vh, 1.3rem);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: #2a2622;
+}
