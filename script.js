@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                         envelopeScreen.style.display = 'none';
                 }, 1000);
+
+                // Só 6s depois do envelope abrir é que o resto da animação
+                // (balões, foto do Valdemiro, bolas de cristal, brinde...) começa
+                setTimeout(() => {
+                        iniciarSequenciaAniversario();
+                }, 3000);
         }
 
         // O laço é o único gatilho: primeiro cai/tomba, só depois o envelope abre
@@ -50,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // ===================== BALÕES A SUBIR (ecrã 1) =====================
+        // Chamada 6s depois do envelope abrir (ver abrirEnvelope) — antes disso
+        // nada deste bloco corre.
+        function iniciarSequenciaAniversario() {
         const balloonLayer = document.getElementById('rising-balloons');
         if (balloonLayer) {
                 const TOTAL_BALOES = 25;
@@ -151,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }, 4400);
                 }, maxTime);
         }
+        } // fim de iniciarSequenciaAniversario()
 
         // ===================== EFEITO DE MOVIMENTO (FUNDO ESTÁTICO / BALÕES MÓVEIS) =====================
         function requestTiltPermission() {

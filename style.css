@@ -171,7 +171,7 @@ body::-webkit-scrollbar {
 /* Entrada — "Happy Birthday" + foto do Valdemiro, centralizadas no topo */
 .birthday-reveal {
         position: absolute;
-        top: 6%;
+        top: 3%;
         left: 50%;
         transform: translateX(-50%);
         z-index: 6;
@@ -282,7 +282,7 @@ body::-webkit-scrollbar {
 
 .disco-ball-5 {
         /* Descida: agora fica um pouco acima do "ay" de "Birthday" (linha do meio) */
-        top: 15%;
+        top: 12%;
         right: 14%;
         width: 11vw;
         max-width: 70px;
@@ -952,7 +952,7 @@ body::-webkit-scrollbar {
 
 .toast-section {
         position: absolute;
-        bottom: 4%;
+        bottom: 17%;
         left: 0;
         right: 0;
         z-index: 8;
@@ -999,20 +999,17 @@ body::-webkit-scrollbar {
         padding-left: clamp(0.4rem, 2vw, 1rem);
 }
 
-/* ---- Traços decorativos (linhas finas douradas) ---- */
+/* ---- Traços decorativos (linhas finas, pretas, discretas — como na referência) ---- */
 .line {
         width: 85%;
-        height: 2px;
+        height: 1px;
         background: linear-gradient(to right,
-                rgba(217, 178, 106, 0.0) 0%,
-                rgba(217, 178, 106, 1) 50%,
-                rgba(217, 178, 106, 0.0) 100%);
+                rgba(0, 0, 0, 0.0) 0%,
+                rgba(0, 0, 0, 0.85) 50%,
+                rgba(0, 0, 0, 0.0) 100%);
         opacity: 0;
         transform: scaleX(0.4);
         transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-        box-shadow:
-                0 0 6px rgba(217, 178, 106, 0.6),
-                0 1px 2px rgba(43, 26, 16, 0.4);
         border-radius: 2px;
 }
 
@@ -1029,29 +1026,25 @@ body::-webkit-scrollbar {
         transition-delay: 0.35s;
 }
 
-/* ---- Texto (label + número) ---- */
+/* ---- Texto (label + número) — estilo fino, discreto, como na referência ---- */
 .date-label {
-        font-size: clamp(0.85rem, 2.4vh, 1.15rem);
-        font-weight: 500;
+        font-size: clamp(0.7rem, 1.8vh, 0.9rem);
+        font-weight: 700;
         color: var(--brown-dark);
-        letter-spacing: 0.1em;
-        line-height: 1.1;
-        text-transform: uppercase;
-        text-shadow:
-                0 0 1px rgba(255, 255, 255, 0.9),
-                0 1px 2px rgba(0, 0, 0, 0.3);
+        letter-spacing: 0.08em;
+        line-height: 1.15;
+        white-space: nowrap;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .date-number {
-        font-size: clamp(1.45rem, 4.2vh, 2.05rem);
+        font-size: clamp(1rem, 2.6vh, 1.35rem);
         font-weight: 700;
         color: var(--brown-dark);
-        letter-spacing: 0.04em;
-        line-height: 1;
-        text-shadow:
-                0 0 1px rgba(255, 255, 255, 0.9),
-                0 1px 2px rgba(0, 0, 0, 0.35),
-                0 0 12px rgba(217, 178, 106, 0.55);
+        letter-spacing: 0.02em;
+        line-height: 1.15;
+        white-space: nowrap;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* ---- Letra individual (animação uma a uma) ---- */
