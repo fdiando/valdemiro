@@ -149,17 +149,3 @@ document.addEventListener('DOMContentLoaded', () => {
 	renderScene();
 });
 
-const btn = document.getElementById('btn-convite');
-const invitation = document.getElementById('invitation-page');
-const cover = document.getElementById('cover');
-if (btn) {
-	btn.addEventListener('click', () => {
-		cover.classList.remove('active');
-		cover.style.display = 'none';
-		invitation.classList.add('active');
-
-		setTimeout(() => {
-			document.querySelectorAll('.timeline-reveal').forEach(el => el.classList.add('animate'));
-		}, 300);
-	});
-}
