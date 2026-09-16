@@ -35,11 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         envelopeScreen.style.display = 'none';
                 }, 1000);
 
-                // Só 6s depois do envelope abrir é que o resto da animação
+                // Depois do envelope abrir, o resto da animação
                 // (balões, foto do Valdemiro, bolas de cristal, brinde...) começa
                 setTimeout(() => {
                         iniciarSequenciaAniversario();
-                }, 3000);
+                }, 1500);
         }
 
         // O laço é o único gatilho: primeiro cai/tomba, só depois o envelope abre
@@ -69,8 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         img.className = 'rising-balloon';
 
                         const left = Math.random() * 96;
-                        const size = 46 + Math.random() * 60;
-                        const duration = 2.5 + Math.random() * 2;
+                        // Aumentado o tamanho dos balões: agora variam entre ~90px e ~210px
+                        const size = 90 + Math.random() * 120;
+                        // Duracão ligeiramente maior para balões maiores
+                        const duration = 3.2 + Math.random() * 2.4;
                         const delay = Math.random() * 1.2;
                         const swayX = (Math.random() * 80 - 40).toFixed(0) + 'px';
                         const swayStart = (Math.random() * 12 - 6).toFixed(1) + 'deg';
@@ -155,6 +157,99 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                         setTimeout(() => {
                                                 if (dateRight) dateRight.classList.add('animate');
+                                                // Depois que o lado direito começa a animar, esperar pela
+                                                // conclusão aproximada das letras + manter a cena 2s
+                                                // antes de remover e mostrar as fotos finais.
+                                                setTimeout(() => {
+                                                        // pausa visual de 2s antes de limpar a cena
+                                                        setTimeout(() => {
+                                                                // Função de limpeza: esconder elementos móveis
+                                                                const discoBalls = document.getElementById('disco-balls');
+                                                                const toastSection = document.getElementById('toast-section');
+                                                                const canecasWrap = document.getElementById('canecas-wrap');
+                                                                const valFaceWrap = document.querySelector('.valdemiro-face-wrap');
+                                                                const balloonLayer = document.getElementById('rising-balloons');
+
+                                                                if (discoBalls) {
+                                                                        discoBalls.classList.remove('show');
+                                                                        discoBalls.classList.add('hide-scene');
+                                                                }
+                                                                if (toastSection) toastSection.classList.add('hide-scene');
+                                                                if (canecasWrap) canecasWrap.classList.add('hide-scene');
+                                                                if (valFaceWrap) valFaceWrap.classList.add('hide-scene');
+                                                                if (balloonLayer) {
+                                                                        balloonLayer.innerHTML = '';
+                                                                        balloonLayer.classList.add('hide-scene');
+                                                                }
+
+                                                                // Criar container com as fotos finais (moldura / localização)
+                                                                const coverBackdrop = document.querySelector('.cover-backdrop');
+                                                                if (coverBackdrop) {
+                                                                        const final = document.createElement('div');
+                                                                        final.className = 'final-photos';
+                                                                        final.innerHTML = `
+                                                                                <div class="frames">
+                                                                                        <div class="polaroid polaroid-back">
+                                                                                                <img src="src/fotos/leandro2.jpeg" alt="leandro2">
+                                                                                        </div>
+                                                                                        <div class="polaroid polaroid-front">
+                                                                                                <img src="src/fotos/leandro1.png" alt="leandro">
+                                                                                        </div>
+                                                                                </div>
+
+                                                                                <div class="local-label">
+                                                                                        <span class="local-title">Local</span>
+                                                                                        <span class="local-name">Restaurante Palace Lounge</span>
+                                                                                </div>
+
+                                                                                <div class="icons-row" role="navigation" aria-label="Ações">
+                                                                                        <div class="icon-item">
+                                                                                                <img src="src/fotos/confirmar_presenca.png" alt="Confirmar presença">
+                                                                                                <div class="icon-label">Confirmar Presença</div>
+                                                                                        </div>
+
+                                                                                        <div class="icon-item">
+                                                                                                <img src="src/fotos/Localizacao.png" alt="Localização">
+                                                                                                <div class="icon-label">Localização</div>
+                                                                                        </div>
+
+                                                                                        <div class="icon-item">
+                                                                                                <img src="src/fotos/Dresscode.png" alt="Dresscode" class="icon-dresscode">
+                                                                                                <div class="icon-label">Dresscode</div>
+                                                                                        </div>
+                                                                                </div>
+                                                                        `;
+                                                                        coverBackdrop.appendChild(final);
+                                                                        // efeito de fade-in
+                                                                        setTimeout(() => final.classList.add('show'), 60);
+
+                                                                        // ---- Canecas a flutuar em movimento circular ao redor da página ----
+                                                                        const orbitLayer = document.createElement('div');
+                                                                        orbitLayer.className = 'mug-orbit-layer';
+                                                                        const MUG_POSITIONS = [
+                                                                                { top: '8%', left: '10%' },
+                                                                                { top: '14%', left: '78%' },
+                                                                                { top: '46%', left: '4%' },
+                                                                                { top: '52%', left: '88%' },
+                                                                                { top: '82%', left: '16%' },
+                                                                                { top: '86%', left: '72%' }
+                                                                        ];
+                                                                        MUG_POSITIONS.forEach((pos, i) => {
+                                                                                const mug = document.createElement('img');
+                                                                                mug.src = 'src/fotos/caneca.png';
+                                                                                mug.alt = '';
+                                                                                mug.className = 'orbit-mug';
+                                                                                mug.style.top = pos.top;
+                                                                                mug.style.left = pos.left;
+                                                                                mug.style.animationDelay = (i * 0.4) + 's';
+                                                                                mug.style.animationDuration = (9 + Math.random() * 4) + 's';
+                                                                                orbitLayer.appendChild(mug);
+                                                                        });
+                                                                        coverBackdrop.appendChild(orbitLayer);
+                                                                        setTimeout(() => orbitLayer.classList.add('show'), 200);
+                                                                }
+                                                        }, 2000);
+                                                }, 2000);
                                         }, 650);
                                 }, 3300 + 1700);
                         }, 4400);

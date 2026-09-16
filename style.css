@@ -139,7 +139,7 @@ body::-webkit-scrollbar {
 .rising-balloon {
         position: absolute;
         bottom: -18%;
-        width: 72px;
+        width: 110px;
         height: auto;
         display: block;
         filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.25));
@@ -265,7 +265,7 @@ body::-webkit-scrollbar {
 }
 
 .disco-ball-3 {
-        bottom: 4%;
+        bottom: -6%;
         right: -10%;
         width: 24vw;
         max-width: 160px;
@@ -273,7 +273,7 @@ body::-webkit-scrollbar {
 }
 
 .disco-ball-4 {
-        bottom: 10%;
+        bottom: -2%;
         left: -7%;
         width: 14vw;
         max-width: 100px;
@@ -281,9 +281,9 @@ body::-webkit-scrollbar {
 }
 
 .disco-ball-5 {
-        /* Descida: agora fica um pouco acima do "ay" de "Birthday" (linha do meio) */
-        top: 12%;
-        right: 14%;
+        /* Ajustado: sobe um pouco e aproxima-se mais à direita do "Birthday" */
+        top: 8%;
+        right: 10%;
         width: 11vw;
         max-width: 70px;
         transition-delay: 0.7s;
@@ -952,7 +952,7 @@ body::-webkit-scrollbar {
 
 .toast-section {
         position: absolute;
-        bottom: 17%;
+        bottom: 12%;
         left: 0;
         right: 0;
         z-index: 8;
@@ -966,6 +966,221 @@ body::-webkit-scrollbar {
         transform: translateY(28px);
         transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         pointer-events: none;
+}
+
+/* Canecas decorativas a flutuar em movimento circular à volta da página */
+.mug-orbit-layer {
+        position: absolute;
+        inset: 0;
+        z-index: 8;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 1s ease;
+}
+
+.mug-orbit-layer.show {
+        opacity: 1;
+}
+
+.orbit-mug {
+        position: absolute;
+        width: clamp(34px, 7vw, 56px);
+        height: auto;
+        filter: drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+        animation: mugOrbit 10s linear infinite;
+        opacity: 0.9;
+}
+
+@keyframes mugOrbit {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(10px, -14px) rotate(8deg); }
+        50% { transform: translate(0, -22px) rotate(0deg); }
+        75% { transform: translate(-10px, -14px) rotate(-8deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Classe utilitária para esconder elementos com transição suave */
+.hide-scene {
+        opacity: 0 !important;
+        transform: translateY(12px) !important;
+        pointer-events: none !important;
+        transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Fotos finais: moldura / localizacao */
+.final-photos {
+        position: absolute;
+        inset: 0;
+        z-index: 9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: clamp(1rem, 3vw, 2.2rem);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.9s ease;
+        flex-wrap: nowrap;
+        /* Aumentado para descer MUITO as molduras abaixo do título 'Leandro' */
+        padding: 40vh 4vw 4vh 4vw;
+}
+
+.final-photos.show {
+        opacity: 1;
+        pointer-events: auto;
+}
+
+.final-photos img {
+        max-width: min(44vw, 420px);
+        width: clamp(140px, 30vw, 420px);
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 8px 26px rgba(0,0,0,0.25);
+}
+
+.final-photos .location-img {
+        width: clamp(120px, 28vw, 360px);
+        opacity: 0.98;
+}
+
+/* Polaroid / moldura das fotos */
+.final-photos .frames {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: clamp(0.6rem, 3vw, 1.2rem);
+        margin-top: 0;
+}
+
+.polaroid {
+        background: white;
+        padding: 10px;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+        border-radius: 6px;
+        transform-origin: center;
+        width: clamp(150px, 32vw, 380px);
+        animation: polaroidFloat 5s ease-in-out infinite;
+}
+
+.polaroid img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+}
+
+/* Ordem e sobreposição — estilo moldura cruzada, como referência */
+.polaroid-back {
+        transform: rotate(-9deg) translate(10%, -10%);
+        z-index: 2;
+        animation-delay: 0.3s;
+}
+
+.polaroid-front {
+        transform: rotate(7deg) translate(-14%, 18%);
+        margin-left: -54px;
+        z-index: 3;
+}
+
+/* Animação leve e contínua de flutuação da moldura */
+@keyframes polaroidFloat {
+        0%, 100% { transform: var(--float-base, rotate(0deg)) translateY(0); }
+        50% { transform: var(--float-base, rotate(0deg)) translateY(-6px); }
+}
+
+.polaroid-back { --float-base: rotate(-9deg) translate(10%, -10%); }
+.polaroid-front { --float-base: rotate(7deg) translate(-14%, 18%); }
+
+/* Animação de entrada das molduras (fade + scale + leve translate) */
+@keyframes polaroidReveal {
+        0% {
+                opacity: 0;
+                transform: translateY(-18px) scale(0.85) rotate(-4deg);
+        }
+
+        60% {
+                opacity: 1;
+                transform: translateY(6px) scale(1.02) rotate(2deg);
+        }
+
+        100% {
+                opacity: 1;
+                transform: none;
+        }
+}
+
+.final-photos.show .polaroid {
+        opacity: 0;
+        animation:
+                polaroidReveal 0.8s cubic-bezier(0.22,1,0.36,1) forwards,
+                polaroidFloat 5s ease-in-out infinite;
+}
+
+.final-photos.show .polaroid-back {
+        animation-delay: 0.12s, 0.9s;
+}
+
+.final-photos.show .polaroid-front {
+        animation-delay: 0.36s, 1.15s;
+}
+
+/* Texto "Local" entre a moldura e os ícones */
+.local-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+        margin-top: clamp(1.6vh, 4vw, 2.8vh);
+        text-align: center;
+}
+
+.local-title {
+        font-family: 'Alex Brush', cursive;
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        color: var(--brown-dark);
+        line-height: 1;
+}
+
+.local-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+        letter-spacing: 0.04em;
+        color: var(--brown-dark);
+        text-transform: uppercase;
+}
+
+/* Linha de ícones com legendas */
+.icons-row {
+        display: flex;
+        gap: clamp(1.2rem, 6vw, 2.6rem);
+        align-items: center;
+        justify-content: center;
+        margin-top: clamp(3.5vh, 6.5vw, 5.5vh);
+}
+
+.icon-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.45rem;
+}
+
+.icon-item img {
+        width: clamp(48px, 12vw, 72px);
+        height: auto;
+        filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
+}
+
+/* Dresscode maior */
+.icon-dresscode {
+        width: clamp(68px, 16vw, 110px);
+}
+
+.icon-label {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(0.68rem, 1.8vh, 0.95rem);
+        color: var(--brown-dark);
+        text-align: center;
 }
 
 .toast-section.show {
