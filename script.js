@@ -61,25 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
         function iniciarSequenciaAniversario() {
         const balloonLayer = document.getElementById('rising-balloons');
         if (balloonLayer) {
-                const TOTAL_BALOES = 25;
+                const TOTAL_BALOES = 20;
+                const fragment = document.createDocumentFragment();
                 for (let i = 0; i < TOTAL_BALOES; i++) {
                         const img = document.createElement('img');
                         img.src = 'src/fundo/baloes.png';
                         img.alt = '';
                         img.className = 'rising-balloon';
 
-                        // Distribuição uniforme ao longo da largura (com leve variação
-                        // aleatória), para garantir balões tanto à esquerda como à direita
-                        const slot = i % TOTAL_BALOES;
-                        const base = (slot / TOTAL_BALOES) * 100;
-                        const jitter = (Math.random() * 10) - 5;
-                        const left = Math.max(0, Math.min(94, base + jitter));
-                        // Aumentado o tamanho dos balões: agora variam entre ~90px e ~210px
-                        const size = 90 + Math.random() * 120;
+                        // Mais balões do lado esquerdo do que do lado direito
+                        let left;
+                        if (i % 3 !== 0) {
+                                left = -2 + Math.random() * 42; // -2% - 40% (esquerda)
+                        } else {
+                                left = 56 + Math.random() * 38; // 56% - 94% (direita)
+                        }
+                        // Balões um pouco maiores
+                        const size = 100 + Math.random() * 120;
                         // Duracão ligeiramente maior para balões maiores
-                        const duration = 3.2 + Math.random() * 2.4;
+                        const duration = 3.6 + Math.random() * 2.4;
                         const delay = Math.random() * 1.2;
-                        const swayX = (Math.random() * 80 - 40).toFixed(0) + 'px';
+                        const swayX = (Math.random() * 70 - 35).toFixed(0) + 'px';
                         const swayStart = (Math.random() * 12 - 6).toFixed(1) + 'deg';
                         const swayEnd = (Math.random() * 12 - 6).toFixed(1) + 'deg';
 
@@ -91,8 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         img.style.setProperty('--sway-start', swayStart);
                         img.style.setProperty('--sway-end', swayEnd);
 
-                        balloonLayer.appendChild(img);
+                        fragment.appendChild(img);
                 }
+                balloonLayer.appendChild(fragment);
 
                 // Depois dos balões terminarem: limpa a camada e revela o bloco de aniversário
                 const maxTime = (2.5 + 2 + 1.2) * 1000 + 400;

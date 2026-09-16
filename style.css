@@ -142,13 +142,15 @@ body::-webkit-scrollbar {
         width: 110px;
         height: auto;
         display: block;
-        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.25));
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
         opacity: 0;
         animation-name: balloon-rise;
         animation-timing-function: ease-in;
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
         will-change: transform, opacity;
+        backface-visibility: hidden;
+        transform: translateZ(0);
 }
 
 @keyframes balloon-rise {
@@ -281,8 +283,8 @@ body::-webkit-scrollbar {
 }
 
 .disco-ball-5 {
-        /* Ajustado: afastada mais do texto "Birthday" */
-        top: 1%;
+        /* Ajustado: afastada do texto "Birthday", um pouco mais abaixo */
+        top: 4%;
         right: 2%;
         width: 11vw;
         max-width: 70px;
