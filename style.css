@@ -1028,13 +1028,13 @@ body::-webkit-scrollbar {
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        gap: clamp(0.7rem, 2.2vw, 1.3rem);
+        gap: clamp(0.5rem, 1.6vw, 1rem);
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.9s ease;
         flex-wrap: nowrap;
-        /* Compactado para garantir que tudo (incluindo os ícones) cabe no ecrã do telemóvel */
-        padding: 22vh 4vw 3vh 4vw;
+        /* Desce a moldura para não tapar o título 'Happy Birthday Leandro' */
+        padding: 34vh 4vw 3vh 4vw;
 }
 
 .final-photos.show {
