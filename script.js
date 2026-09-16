@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function iniciarSequenciaAniversario() {
         const balloonLayer = document.getElementById('rising-balloons');
         if (balloonLayer) {
-                const TOTAL_BALOES = 20;
+                const TOTAL_BALOES = 25;
                 const fragment = document.createDocumentFragment();
                 for (let i = 0; i < TOTAL_BALOES; i++) {
                         const img = document.createElement('img');
@@ -70,17 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         img.className = 'rising-balloon';
 
                         // Mais balões do lado esquerdo do que do lado direito
+                        // (afastados um pouco da borda para não sobrepor os ícones)
                         let left;
-                        if (i % 3 !== 0) {
-                                left = -2 + Math.random() * 42; // -2% - 40% (esquerda)
+                        if (i % 5 !== 0) {
+                                left = 4 + Math.random() * 40; // 4% - 44% (esquerda)
                         } else {
                                 left = 56 + Math.random() * 38; // 56% - 94% (direita)
                         }
                         // Balões um pouco maiores
                         const size = 100 + Math.random() * 120;
-                        // Duracão ligeiramente maior para balões maiores
-                        const duration = 3.6 + Math.random() * 2.4;
-                        const delay = Math.random() * 1.2;
+                        // Duracão e atraso mais espalhados, para não subirem todos juntos
+                        const duration = 3.6 + Math.random() * 3.2;
+                        const delay = Math.random() * 2.6;
                         const swayX = (Math.random() * 70 - 35).toFixed(0) + 'px';
                         const swayStart = (Math.random() * 12 - 6).toFixed(1) + 'deg';
                         const swayEnd = (Math.random() * 12 - 6).toFixed(1) + 'deg';
@@ -98,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 balloonLayer.appendChild(fragment);
 
                 // Depois dos balões terminarem: limpa a camada e revela o bloco de aniversário
-                const maxTime = (2.5 + 2 + 1.2) * 1000 + 400;
+                const maxTime = (3.6 + 3.2 + 2.6) * 1000 + 400;
                 setTimeout(() => {
                         balloonLayer.innerHTML = '';
 
