@@ -87,6 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (birthdayReveal) {
 				birthdayReveal.classList.add('show');
 			}
+
+			// Bolas de cristal: só surgem depois da foto aparecer e começar a girar
+			const discoBalls = document.getElementById('disco-balls');
+			if (discoBalls) {
+				setTimeout(() => {
+					discoBalls.classList.add('show');
+				}, 2400);
+			}
 		}, maxTime);
 	}
 

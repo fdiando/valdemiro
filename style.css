@@ -221,6 +221,83 @@ body::-webkit-scrollbar {
         animation: face-spin 3.4s linear 1.7s infinite;
 }
 
+/* Bolas de cristal — aparecem nos cantos depois da foto girar */
+.disco-balls {
+        position: absolute;
+        inset: 0;
+        z-index: 7;
+        pointer-events: none;
+        overflow: hidden;
+}
+
+.disco-ball {
+        position: absolute;
+        width: 22vw;
+        max-width: 150px;
+        min-width: 70px;
+        height: auto;
+        opacity: 0;
+        filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+        transform: scale(0.4) rotate(0deg);
+        transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.disco-balls.show .disco-ball {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        animation: disco-spin 6s linear infinite;
+}
+
+.disco-ball-1 {
+        top: -8%;
+        left: -9%;
+        width: 26vw;
+        max-width: 170px;
+        transition-delay: 0s;
+}
+
+.disco-ball-2 {
+        top: -6%;
+        right: -8%;
+        width: 15vw;
+        max-width: 110px;
+        transition-delay: 0.18s;
+}
+
+.disco-ball-3 {
+        bottom: 4%;
+        right: -10%;
+        width: 24vw;
+        max-width: 160px;
+        transition-delay: 0.36s;
+}
+
+.disco-ball-4 {
+        bottom: 10%;
+        left: -7%;
+        width: 14vw;
+        max-width: 100px;
+        transition-delay: 0.54s;
+}
+
+.disco-ball-5 {
+        top: 7%;
+        right: 16%;
+        width: 11vw;
+        max-width: 70px;
+        transition-delay: 0.7s;
+}
+
+@keyframes disco-spin {
+        from {
+                transform: scale(1) rotate(0deg);
+        }
+
+        to {
+                transform: scale(1) rotate(360deg);
+        }
+}
+
 @keyframes face-spin {
         from {
                 transform: rotate(0deg);
